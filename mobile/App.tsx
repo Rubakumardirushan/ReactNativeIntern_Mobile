@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import Button from '@ant-design/react-native/lib/button';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -87,6 +87,7 @@ function App(): JSX.Element {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">
+            <Button >click here</Button>
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
