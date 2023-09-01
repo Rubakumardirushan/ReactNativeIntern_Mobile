@@ -6,7 +6,7 @@ import axios from 'axios';
 const Login = () =>{
     const [before,after]=useState('waiting for login')
     const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [password, setPassword] = useState<string>(''); 
     const handleLogin = async () => {
         if (!username.trim() && !password.trim()) {
             after('plz enter username and password')
@@ -24,7 +24,8 @@ const Login = () =>{
             }
             
           ); 
-          after('login successful'); 
+          const { token } = response.data;
+          after(token); 
         } catch (error) {
           after("login Failed");
         }
