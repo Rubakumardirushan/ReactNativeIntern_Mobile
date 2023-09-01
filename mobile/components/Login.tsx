@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet ,TextInput} from 'react-native';
 import { WingBlank,Button } from '@ant-design/react-native';
 import axios from 'axios';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 const Login = () =>{
     const [before,after]=useState('waiting for login')
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const handleLogin = async () => {
+        if (!username.trim() && !password.trim()) {
+            after('plz enter username and password')
+          }else if(!username.trim()){
+            after('plz enter the username')
+          }else if (!password.trim()){
+            after('plz enter the password')
+          }
         try {
           const response = await axios.post(
             'https://fakestoreapi.com/auth/login',
@@ -24,13 +31,19 @@ const Login = () =>{
       };
   return (
     
+    
     <View style={styles.container}>
       <WingBlank>
         <Text style={styles.title}>Login Page</Text>
         <TextInput style={styles.inputbox}
         placeholder='  username'  onChangeText={(text) => setUsername(text)}></TextInput>
+
         <TextInput
-        placeholder='  Password'onChangeText={(text) => setPassword(text)}  style={styles.inputbox}></TextInput>
+        placeholder='  Password'onChangeText={(text) => setPassword(text)}  style={styles.inputbox}
+        secureTextEntry
+        
+        ></TextInput>
+
         <Button style={styles.buttons} onPress={handleLogin} >Log in</Button>
         <Text
         >{before}</Text>
