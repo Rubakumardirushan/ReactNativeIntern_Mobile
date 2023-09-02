@@ -7,4 +7,7 @@ import App from './App';
 import {name as appName} from './app.json';
 
 import Login from './components/Login';
-AppRegistry.registerComponent(appName, () => Login);
+import AppNavigator from './components/AppNavigator';
+
+
+AppRegistry.registerComponent(appName, () => AppNavigator);

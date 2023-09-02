@@ -3,10 +3,14 @@ import { View, Text, StyleSheet ,TextInput} from 'react-native';
 import { WingBlank,Button } from '@ant-design/react-native';
 import axios from 'axios';
 
-const Login = () =>{
+
+
+const Login = ({ navigation }) =>{
+  
     const [before,after]=useState('waiting for login')
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>(''); 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState(''); 
+    
     const handleLogin = async () => {
         if (!username.trim() && !password.trim()) {
             after('plz enter username and password')
@@ -17,18 +21,24 @@ const Login = () =>{
           }
         try {
           const response = await axios.post(
+            
             'https://fakestoreapi.com/auth/login',
             {
               username,
               password,
+              
             }
             
-          ); 
-          const { token } = response.data;
-          after(token); 
+            
+            
+          ); navigation.navigate('List all available products')
+       
+          after(`Welcome  ${username} login Success!!.` );
+          
         } catch (error) {
-          after("login Failed");
+          after("login Failed") ;
         }
+        
       };
   return (
     
@@ -37,6 +47,7 @@ const Login = () =>{
       <WingBlank>
         <Text style={styles.title}>Login Page</Text>
         <TextInput style={styles.inputbox}
+        value={username}
         placeholder='  username'  onChangeText={(text) => setUsername(text)}></TextInput>
 
         <TextInput
@@ -46,7 +57,7 @@ const Login = () =>{
         ></TextInput>
 
         <Button style={styles.buttons} onPress={handleLogin} >Log in</Button>
-        <Text
+        <Text style={styles.results}
         >{before}</Text>
       </WingBlank>
     </View>
@@ -97,6 +108,13 @@ marginLeft:70,
 borderRadius: 30,
 borderColor: 'black',
 borderWidth: 2,
+  },
+  results:{
+marginTop:90,
+marginLeft:30,
+fontSize:20,
+fontWeight:'bold',
+
   }
 });
 
